@@ -42,6 +42,9 @@ $(document).ready(function() {
                         <button class="btn btn-danger btn-sm shadow-sm" onclick="eliminarUsuario(${user.id})">
                             <i class="fas fa-trash"></i>
                         </button>
+                        <button class="btn btn-info btn-sm shadow-sm" onclick="infoUsuario(${user.id})">
+                             <i class="fas fa-info-circle"></i>
+                        </button>
                     </div>
                 `;
 
@@ -94,4 +97,37 @@ function editarUsuario(id) {
     // Por ahora solo logueamos, podrías abrir un modal aquí
     console.log("Redirigiendo a edición del usuario:", id);
     // window.location.href = `editarUsuario.html?id=${id}`;
+}
+
+function infoUsuario(id) {
+    const token = localStorage.getItem('token');
+
+    fetch(`http://localhost:8080/api/user/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("No se pudo obtener los datos");
+        }
+        return response.json(); // Convertimos la respuesta a JSON
+    })
+    .then(user => {
+        // 1. Insertar los datos del DTO en el HTML
+        document.getElementById('modalName').textContent = user.name;
+        document.getElementById('modalLastname').textContent = user.lastname;
+        document.getElementById('modalEmail').textContent = user.email;
+        document.getElementById('modalUserName').textContent = user.userName;
+
+        // 2. Mostrar el modal (Si usas Bootstrap 5)
+        const myModal = new bootstrap.Modal(document.getElementById('userModal'));
+        myModal.show();
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        alert("Error al cargar los datos del usuario.");
+    });
 }
