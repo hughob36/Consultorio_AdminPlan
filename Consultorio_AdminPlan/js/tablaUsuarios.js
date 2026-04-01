@@ -93,12 +93,6 @@ function eliminarUsuario(id) {
     }
 }
 
-function editarUsuario(id) {
-    // Por ahora solo logueamos, podrías abrir un modal aquí
-    console.log("Redirigiendo a edición del usuario:", id);
-    // window.location.href = `editarUsuario.html?id=${id}`;
-}
-
 function infoUsuario(id) {
     const token = localStorage.getItem('token');
 
@@ -131,3 +125,93 @@ function infoUsuario(id) {
         alert("Error al cargar los datos del usuario.");
     });
 }
+
+
+// 1. Función que se activa al hacer clic en el botón de la tabla
+function editarUsuario(id) {
+    const token = localStorage.getItem('token');
+    
+    fetch(`http://localhost:8080/api/user/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("No se pudo obtener la información del usuario.");
+        return response.json();
+    })
+    .then(user => {
+        // Llenamos los inputs del modal con los datos recibidos
+        document.getElementById('editUserId').value = user.id;
+        document.getElementById('editName').value = user.name;
+        document.getElementById('editLastname').value = user.lastname;
+        document.getElementById('editEmail').value = user.email;
+        document.getElementById('editUserName').value = user.userName;
+        document.getElementById('editPassword').value = user.password;
+
+        // Abrimos el modal programáticamente (Bootstrap 5)
+        const modalElement = document.getElementById('editarUsuarioModal');
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+    })
+    .catch(error => {
+        console.error("Error al cargar usuario:", error);
+        alert("Error al cargar los datos del usuario.");
+    });
+}
+
+// 2. Event Listener para el envío del formulario (fuera de la función anterior)
+document.addEventListener('DOMContentLoaded', function() {
+    const formEditar = document.getElementById('formEditarUsuario');
+    
+    if (formEditar) {
+        formEditar.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitamos que la página se recargue
+
+            const id = document.getElementById('editUserId').value;
+            const token = localStorage.getItem('token');
+
+            // Creamos el objeto con los datos actualizados
+            const usuarioData = {
+                name: document.getElementById('editName').value,
+                lastname: document.getElementById('editLastname').value,
+                email: document.getElementById('editEmail').value,
+                userName: document.getElementById('editUserName').value,
+                password: document.getElementById('editPassword').value,
+                enable: true,
+                accountNotExpired: true,
+                accountNotLocked: true,
+                credentialNotExpired: true,
+                roleList: [
+                    {
+                        "id": 2          
+                    }              
+                ]
+            };
+
+            // Enviamos la petición PUT al backend
+            fetch(`http://localhost:8080/api/user/${id}`, {
+                method: 'PUT', // Asegúrate de que tu backend use PUT para actualizaciones
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usuarioData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Usuario actualizado con éxito");
+                    location.reload(); // Refrescamos la tabla para ver los cambios
+                } else {
+                    alert("Error al intentar actualizar el usuario.");
+                }
+            })
+            .catch(error => {
+                console.error("Error en la petición:", error);
+                alert("Hubo un problema con la conexión.");
+            });
+        });
+    }
+});
