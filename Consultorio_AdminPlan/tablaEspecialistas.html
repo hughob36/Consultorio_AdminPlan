@@ -36,7 +36,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-stethoscope"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Consultorio</div>
             </a>
@@ -56,40 +56,22 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
-            </li>
+                Registrar y Asignar
+            </div>           
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>Utilidades</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    <div class="bg-white py-2 collapse-inner rounded">                                                                              
+                        <a class="collapse-item" href="register.html">Registrar Usuario</a>
+                        <a class="collapse-item" href="registrarEspecialista.html">Registrar Especialista</a>
+                        <a class="collapse-item" href="forgot-password.html">Asignar Turno</a>                        
                     </div>
                 </div>
             </li>
@@ -99,37 +81,25 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
-            </div>
+                Especialistas y Usuarios
+            </div>           
 
-            <!-- Nav Item - Pages Collapse Menu -->
+             <!-- Nav tablas -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Tablas</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                    <div class="bg-white py-2 collapse-inner rounded">                        
+                        <a class="collapse-item" href="tables.html">Usuarios</a>
+                        <a class="collapse-item" href="tablaEspecialistas.html">Especialistas</a>
+                        <a class="collapse-item" href="forgot-password.html">Turnos asignados</a>                        
                     </div>
                 </div>
-            </li>
-
-            
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
+            </li>           
+          
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -209,9 +179,9 @@
             </div>
             <!-- End of Main Content -->
 
-            <!-- Modal mostrar los datos del ususario -->
+            <!-- Modal mostrar los datos del especialistas -->
             <div class="modal fade" id="especialistaModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-dialog modal-dialog-centered">                
                 <div class="modal-content shadow-lg">
                   <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="userModalLabel border-0">Detalles del Especialista</h5>
@@ -242,7 +212,7 @@
               </div>
             </div>
 
-            <!-- Modal para editar los datos del usuario -->
+            <!-- Modal para editar los datos del especialista -->
             <div class="modal fade" id="editarEspecialistaModal" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -253,6 +223,7 @@
                         <div class="modal-body">
                             <form id="formEditarUsuario">
                                 <input type="hidden" id="editUserId">
+                                <input type="hidden" id="editActive">
 
                                 <div class="mb-3">
                                     <label class="form-label">Nombre</label>
@@ -264,7 +235,7 @@
                                 </div>                               
                                 <div class="mb-3">
                                     <label class="form-label">Especialidad</label>
-                                    <input type="text" class="form-control" id="editUserName" required>
+                                    <input type="text" class="form-control" id="editSpecialist" required>
                                 </div>                               
                                 <div class="text-end">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
