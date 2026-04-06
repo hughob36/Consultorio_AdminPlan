@@ -70,8 +70,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">                                                                              
                         <a class="collapse-item" href="register.html">Registrar Usuario</a>
-                        <a class="collapse-item" href="registrarEspecialista.html">Registrar Especialista</a>
-                        <a class="collapse-item" href="forgot-password.html">Asignar Turno</a>                        
+                        <a class="collapse-item" href="registrarEspecialista.html">Registrar Especialista</a>                                                
                     </div>
                 </div>
             </li>
@@ -95,7 +94,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">                        
                         <a class="collapse-item" href="tables.html">Usuarios</a>
                         <a class="collapse-item" href="tablaEspecialistas.html">Especialistas</a>
-                        <a class="collapse-item" href="forgot-password.html">Turnos asignados</a>                        
+                        <a class="collapse-item" href="tablaTurnosAsignados.html">Turnos asignados</a>                        
                     </div>
                 </div>
             </li>           
@@ -255,6 +254,43 @@
                 </div>
             </div>
 
+            <!-- Modal para asignar turno los datos del usuario -->    
+            <div class="modal fade" id="modalTurno" tabindex="-1" aria-labelledby="modalTurnoLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalTurnoLabel"><i class="fas fa-calendar-plus"></i> Asignar Nuevo Turno</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="formAsignarTurno">
+                      <input type="hidden" id="userIdTurno">
+                    
+                      <div class="mb-3">
+                        <label class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="fechaTurno" required>
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">Hora</label>
+                        <input type="time" class="form-control" id="horaTurno" required>
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">Especialista</label>
+                        <select class="form-select" id="selectEspecialista" required>
+                          <option value="">Seleccione un especialista...</option>
+                          </select>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" onclick="guardarTurno()">Confirmar Turno</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">

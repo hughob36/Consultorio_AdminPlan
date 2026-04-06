@@ -36,14 +36,17 @@ $(document).ready(function() {
 
                 const botones = `
                     <div class="text-center">
-                        <button class="btn btn-warning btn-sm shadow-sm" onclick="editarUsuario(${user.id})">
+                        <button class="btn btn-warning btn-sm shadow-sm" onclick="editarUsuario(${user.id})" title="Editar Usuario">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm shadow-sm" onclick="eliminarUsuario(${user.id})">
+                        <button class="btn btn-danger btn-sm shadow-sm" onclick="eliminarUsuario(${user.id})" title="Eliminar Usuario">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <button class="btn btn-info btn-sm shadow-sm" onclick="infoUsuario(${user.id})">
+                        <button class="btn btn-info btn-sm shadow-sm" onclick="infoUsuario(${user.id})" title="Info Usuario">
                              <i class="fas fa-info-circle"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm shadow-sm" onclick="asignarTurno(${user.id})" title="Asignar Turno">
+                            <i class="fas fa-clock"></i>
                         </button>
                     </div>
                 `;
@@ -215,3 +218,71 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+
+
+// Función asignar turnos
+function asignarTurno(idUsuario) {
+    const token = localStorage.getItem('token');
+    // 1. Guardamos el ID del usuario en el input oculto
+    document.getElementById('userIdTurno').value = idUsuario;
+    
+    // 2. Cargamos los especialistas desde tu API
+    fetch('http://localhost:8080/api/specialist', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token, 
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(especialistas => {
+        const select = document.getElementById('selectEspecialista');
+        select.innerHTML = '<option value="">Seleccione un especialista...</option>'; // Limpiar
+        
+        especialistas.forEach(e => {
+            const option = document.createElement('option');
+            option.value = e.id;
+            // Mostramos Nombre, Apellido y Especialidad como pediste
+            option.textContent = `${e.name} ${e.lastname} - ${e.specialty}`;
+            select.appendChild(option);
+        });
+
+        // 3. Mostramos el modal (usando Bootstrap 5)
+        const myModal = new bootstrap.Modal(document.getElementById('modalTurno'));
+        myModal.show();
+    })
+    .catch(error => console.error('Error cargando especialistas:', error));
+}
+
+// Función para registrar el turno en la BD
+function guardarTurno() {
+    const token = localStorage.getItem('token');
+
+    const data = {
+        date: document.getElementById('fechaTurno').value,
+        time: document.getElementById('horaTurno').value,
+        user: { id: document.getElementById('userIdTurno').value },
+        specialist: { id: document.getElementById('selectEspecialista').value }
+    };
+
+    fetch('http://localhost:8080/api/appointment', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Turno asignado con éxito");
+            bootstrap.Modal.getInstance(document.getElementById('modalTurno')).hide();
+            window.location.href = 'tablaTurnosAsignados.html';
+            location.reload(); // Opcional: recargar para ver cambios
+        } else {
+            alert("Error al asignar el turno");
+        }
+    });
+}

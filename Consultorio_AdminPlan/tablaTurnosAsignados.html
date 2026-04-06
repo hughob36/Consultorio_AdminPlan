@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Consultorio - Tabla especialistas</title>
+    <title>Consultorio - Tabla usuarios</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -94,7 +94,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">                        
                         <a class="collapse-item" href="tables.html">Usuarios</a>
                         <a class="collapse-item" href="tablaEspecialistas.html">Especialistas</a>
-                        <a class="collapse-item" href="tablaTurnosAsignados">Turnos asignados</a>                        
+                        <a class="collapse-item" href="tablaTurnosAsignados.html">Turnos asignados</a>                        
                     </div>
                 </div>
             </li>           
@@ -143,8 +143,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tabla Especialistas</h1>
-                    <p class="mb-4">Tabla especialistas del consultorio.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Tabla Turnos</h1>                    
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -156,10 +155,11 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Apellido</th>                                            
-                                            <th>Especialidad</th>
-                                            <th>Activo</th>
+                                            <th>Fecha</th>
+                                            <th>Hora</th>                                            
+                                            <th>Nombre de Usuario</th>
+                                            <th>Nombre del Especialista</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -176,76 +176,8 @@
                 </div>
                 <!-- /.container-fluid -->
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Modal mostrar los datos del especialistas -->
-            <div class="modal fade" id="especialistaModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">                
-                <div class="modal-content shadow-lg">
-                  <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="userModalLabel border-0">Detalles del Especialista</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row mb-3">
-                      <div class="col-sm-4 fw-bold">Nombre:</div>
-                      <div class="col-sm-8" id="modalName">---</div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-sm-4 fw-bold">Apellido:</div>
-                      <div class="col-sm-8" id="modalLastname">---</div>
-                    </div>                    
-                    <div class="row mb-3">
-                      <div class="col-sm-4 fw-bold">Especialidad:</div>
-                      <div class="col-sm-8"><span class="badge bg-secondary" id="modalEspecialidad">---</span></div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-sm-4 fw-bold">Especialidad:</div>
-                      <div class="col-sm-8"><span class="badge bg-secondary" id="modalActive">---</span></div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Modal para editar los datos del especialista -->
-            <div class="modal fade" id="editarEspecialistaModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Actualizar Especialista</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="formEditarUsuario">
-                                <input type="hidden" id="editUserId">
-                                <input type="hidden" id="editActive">
-
-                                <div class="mb-3">
-                                    <label class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="editName" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Apellido</label>
-                                    <input type="text" class="form-control" id="editLastname" required>
-                                </div>                               
-                                <div class="mb-3">
-                                    <label class="form-label">Especialidad</label>
-                                    <input type="text" class="form-control" id="editSpecialist" required>
-                                </div>                               
-                                <div class="text-end">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- End of Main Content -->       
+         
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -304,7 +236,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <script src="js/tablaEspecialistas.js" ></script>
+    <script src="js/tablaTurnosAsignados.js" ></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
