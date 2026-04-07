@@ -33,13 +33,13 @@ $(document).ready(function() {
                 
                 const botones = `
                     <div class="text-center">
-                        <button class="btn btn-warning btn-sm shadow-sm" onclick="editarUsuario(${user.id})">
+                        <button class="btn btn-warning btn-sm shadow-sm" onclick="editarUsuario(${user.id})" title="Editar Especialista">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm shadow-sm" onclick="eliminarUsuario(${user.id})">
+                        <button class="btn btn-danger btn-sm shadow-sm" onclick="eliminarUsuario(${user.id})" title="Desactivar Especialista">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <button class="btn btn-info btn-sm shadow-sm" onclick="infoEspecialista(${user.id})">
+                        <button class="btn btn-info btn-sm shadow-sm" onclick="infoEspecialista(${user.id})"title="Info Especialista">
                              <i class="fas fa-info-circle"></i>
                         </button>
                     </div>
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Enviamos la petición PUT al backend
             fetch(`http://localhost:8080/api/specialist/${id}`, {
-                method: 'PUT', // Asegúrate de que tu backend use PUT para actualizaciones
+                method: 'PUT', 
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'

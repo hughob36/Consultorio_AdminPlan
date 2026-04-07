@@ -39,7 +39,10 @@ $(document).ready(function() {
             const nombreEspecialista = turno.specialist ? `${turno.specialist.name} ${turno.specialist.lastname}` : 'N/A';
 
             const botones = `
-                <div class="text-center">                
+                <div class="text-center">
+                    <button class="btn btn-warning btn-sm shadow-sm" onclick="editarTurno(${turno.id})" title="Editar Turno">
+                        <i class="fas fa-edit"></i>
+                    </button>                
 
                     <button class="btn btn-primary btn-sm shadow-sm" onclick="cambiarEstado(${turno.id}, 'IN_PROGRESS')" 
                         title="Iniciar Turno">
@@ -75,7 +78,7 @@ $(document).ready(function() {
     cargarUsuarios();
 });
 
-function cambiarEstado(id, nuevoEstado) {
+function editarEspecialista(id, nuevoEstado) {
     // 1. Mensaje de confirmación personalizado
     const accion = nuevoEstado === 'IN_PROGRESS' ? 'iniciar' : 'completar';
     if (!confirm(`¿Estás seguro de que deseas ${accion} este turno?`)) {
@@ -83,7 +86,7 @@ function cambiarEstado(id, nuevoEstado) {
     }
 
     // 2. Obtener el token de seguridad
-    const token = localStorage.getItem('token'); // Ajusta según donde guardes tu JWT
+    const token = localStorage.getItem('token'); 
 
     // 3. Petición al endpoint @PatchMapping("/{id}")
     fetch(`http://localhost:8080/api/appointment/${id}`, {
@@ -92,7 +95,7 @@ function cambiarEstado(id, nuevoEstado) {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
-        // Enviamos el String del Enum directamente en el cuerpo
+        
         body: JSON.stringify(nuevoEstado) 
     })
     .then(response => {
@@ -110,11 +113,11 @@ function cambiarEstado(id, nuevoEstado) {
         console.log("Éxito:", data);
         alert(`Turno actualizado a: ${nuevoEstado}`);
         
-        // 4. Refrescar los datos (si tienes una función cargarUsuarios o similar)
+        // 4. Refrescar los datos 
         if (typeof cargarUsuarios === 'function') {
             cargarUsuarios(); 
         } else {
-            location.reload(); // Recarga la página como plan B
+            location.reload(); 
         }
     })
     .catch(error => {
@@ -122,3 +125,85 @@ function cambiarEstado(id, nuevoEstado) {
         alert(error.message);
     });
 }
+
+function editarTurno(id) {
+    const token = localStorage.getItem('token');
+    
+    fetch(`http://localhost:8080/api/appointment/${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("No se pudo obtener la información del turno.");
+        return response.json();
+    })
+    .then(turno => {
+        // Llenamos los inputs del modal con los datos recibidos
+        document.getElementById('editTurnoId').value = turno.id;
+        document.getElementById('editDate').value = turno.date;
+        document.getElementById('editTime').value = turno.time;
+        document.getElementById('editAppointmentStatus').value = turno.appointmentStatus;        
+        document.getElementById('editUserId').value = turno.user.id;
+        document.getElementById('editSpecialistId').value = turno.specialist.id,
+        document.getElementById('editSpecialist').value = turno.specialist.name  +" "+turno.specialist.lastname;        
+
+        // Abrimos el modal programáticamente (Bootstrap 5)
+        const modalElement = document.getElementById('editarTurnoModal');
+        const modalInstance = new bootstrap.Modal(modalElement);
+        modalInstance.show();
+    })
+    .catch(error => {
+        console.error("Error al cargar turno:", error);
+        alert("Error al cargar los datos del turno.");
+    });
+}
+
+// 2. Event Listener para el envío del formulario (fuera de la función anterior)
+document.addEventListener('DOMContentLoaded', function() {    
+    const formEditar = document.getElementById('formEditarTurno');   
+    
+    if (formEditar) {
+        formEditar.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const id = document.getElementById('editTurnoId').value;
+            const token = localStorage.getItem('token');
+
+        console.log(token);
+
+            // Creamos el objeto con los datos actualizados
+            const turnoData = {
+                date: document.getElementById('editDate').value,
+                time: document.getElementById('editTime').value,
+                appointmentStatus: "SCHEDULED",//document.getElementById('editSpecialist').value,
+                user: { id: document.getElementById('editUserId').value },
+                specialist: { id: document.getElementById('editSpecialistId').value }               
+            };
+
+            // Enviamos la petición PUT al backend
+            fetch(`http://localhost:8080/api/appointment/${id}`, {
+                method: 'PUT', 
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(turnoData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Turno actualizado con éxito");
+                    location.reload(); 
+                } else {
+                    alert("Error al intentar actualizar el turno.");
+                }
+            })
+            .catch(error => {
+                console.error("Error en la petición:", error);
+                alert("Hubo un problema con la conexión.");
+            });
+        });
+    }
+});

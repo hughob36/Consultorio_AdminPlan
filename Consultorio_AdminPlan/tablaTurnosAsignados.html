@@ -148,7 +148,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Datos de usuarios</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Lista de Tunos</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -219,6 +219,44 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para editar los datos del turno -->
+            <div class="modal fade" id="editarTurnoModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Actualizar Especialista</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formEditarTurno">
+                                <input type="hidden" id="editTurnoId">
+                                <input type="hidden" id="editUserId">
+                                <input type="hidden" id="editAppointmentStatus">
+                                <input type="hidden" id="editSpecialistId">                                
+
+                                <div class="mb-3">
+                                    <label class="form-label">Fecha</label>
+                                    <input type="date" class="form-control" id="editDate" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Hora</label>
+                                    <input type="time" class="form-control" id="editTime" required>
+                                </div>                               
+                                <div class="mb-3">
+                                    <label class="form-label">Especialidad</label>
+                                    <input type="text" class="form-control" id="editSpecialist" readonly>
+                                </div>                               
+                                <div class="text-end">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
