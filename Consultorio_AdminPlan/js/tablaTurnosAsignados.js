@@ -78,6 +78,22 @@ $(document).ready(function() {
     cargarUsuarios();
 });
 
+//oculta botones de usuarios no logeados
+document.addEventListener("DOMContentLoaded", () => {    
+    const elementosPrivados = document.querySelectorAll('.menu-privado');
+    const token = localStorage.getItem('token'); 
+
+    if (token) {        
+        elementosPrivados.forEach(el => {
+            el.classList.remove('d-none');
+        });
+    } else {
+        elementosPrivados.forEach(el => {
+            el.classList.add('d-none');
+        });
+    }
+});
+
 function editarEspecialista(id, nuevoEstado) {
     // 1. Mensaje de confirmación personalizado
     const accion = nuevoEstado === 'IN_PROGRESS' ? 'iniciar' : 'completar';
@@ -213,7 +229,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (btnLogout) {
         btnLogout.addEventListener('click', function() {            
-            localStorage.removeItem('token');                         
+            localStorage.removeItem('token');
+            localStorage.clear();                         
             console.log("Sesión cerrada, eliminando token...");
             window.location.href = "index.html";
         });

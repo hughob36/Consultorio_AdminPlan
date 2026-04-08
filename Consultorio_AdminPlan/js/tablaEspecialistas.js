@@ -65,6 +65,23 @@ $(document).ready(function() {
     cargarEspecialistas();
 });
 
+//oculta botones de usuarios no logeados
+document.addEventListener("DOMContentLoaded", () => {    
+    const elementosPrivados = document.querySelectorAll('.menu-privado');
+    const token = localStorage.getItem('token'); 
+
+    if (token) {        
+        elementosPrivados.forEach(el => {
+            el.classList.remove('d-none');
+        });
+    } else {
+        elementosPrivados.forEach(el => {
+            el.classList.add('d-none');
+        });
+    }
+});
+
+
 // --- FUNCIONES GLOBALES ---
 
 function eliminarUsuario(id) {
@@ -208,9 +225,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (btnLogout) {
         btnLogout.addEventListener('click', function() {            
-            localStorage.removeItem('token');                         
+            localStorage.removeItem('token'); 
+            localStorage.clear();                        
             console.log("Sesión cerrada, eliminando token...");
-            window.location.href = "index.html";
+            window.location.href = "index.html";            
         });
     }
 });
