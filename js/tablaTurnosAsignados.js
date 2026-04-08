@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-function editarEspecialista(id, nuevoEstado) {
+function cambiarEstado(id, nuevoEstado) {
     // 1. Mensaje de confirmación personalizado
     const accion = nuevoEstado === 'IN_PROGRESS' ? 'iniciar' : 'completar';
     if (!confirm(`¿Estás seguro de que deseas ${accion} este turno?`)) {

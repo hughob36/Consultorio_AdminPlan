@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 alert("¡Usuario registrado con éxito!");
-                window.location.href = 'index.html'; 
+                window.location.href = 'tables.html'; 
             } else {
                 // Si el error es 403 o 401, el token probablemente venció
                 if(response.status === 403 || response.status === 401) {
