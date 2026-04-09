@@ -16,7 +16,7 @@ $(document).ready(function() {
         fetch('http://localhost:8080/api/user', {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + token, // IMPORTANTE: Enviamos el token
+                'Authorization': 'Bearer ' + token, 
                 'Content-Type': 'application/json'
             }
         })
@@ -30,36 +30,34 @@ $(document).ready(function() {
         .then(usuarios => {
             tablaUsuarios.clear();
 
-            usuarios.forEach(user => {
-                // Mapear los roles. Si user.roleList viene como objetos:
-                const rolesStr = user.roleList.map(r => r.role).join(', ');
-
-                const botones = `
-                    <div class="text-center">
-                        <button class="btn btn-warning btn-sm shadow-sm" onclick="editarUsuario(${user.id})" title="Editar Usuario">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger btn-sm shadow-sm" onclick="eliminarUsuario(${user.id})" title="Eliminar Usuario">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <button class="btn btn-info btn-sm shadow-sm" onclick="infoUsuario(${user.id})" title="Info Usuario">
-                             <i class="fas fa-info-circle"></i>
-                        </button>
-                        <button class="btn btn-primary btn-sm shadow-sm" onclick="asignarTurno(${user.id})" title="Asignar Turno">
-                            <i class="fas fa-clock"></i>
-                        </button>
-                    </div>
-                `;
-
+             usuarios.forEach(user => {
+                 // Mapear los roles. Si user.roleList viene como objetos:
+                 const rolesStr = user.roleList.map(r => r.role).join(', ');               
+                 const botones = `
+                     <div class="text-center">
+                         <button class="btn btn-warning btn-sm shadow-sm" onclick="editarUsuario(${user.id})" title="Editar Usuario">
+                             <i class="fas fa-edit"></i>
+                         </button>
+                         <button class="btn btn-danger btn-sm shadow-sm" onclick="eliminarUsuario(${user.id})" title="Eliminar Usuario">
+                             <i class="fas fa-trash"></i>
+                         </button>
+                         <button class="btn btn-info btn-sm shadow-sm" onclick="infoUsuario(${user.id})" title="Info Usuario">
+                              <i class="fas fa-info-circle"></i>
+                         </button>
+                         <button class="btn btn-primary btn-sm shadow-sm" onclick="asignarTurno(${user.id})" title="Asignar Turno">
+                               <i class="fas fa-clock"></i>
+                         </button>
+                         </div>`;
                 tablaUsuarios.row.add([
-                    user.name,
-                    user.lastname,
-                    user.email,
-                    user.userName,
-                    rolesStr,
-                    botones
-                ]);
-            });
+                     user.name,
+                     user.lastname,
+                     user.email,
+                     user.userName,
+                     rolesStr,
+                     botones
+                 ]);                      
+             
+             });       
 
             tablaUsuarios.draw();
         })
