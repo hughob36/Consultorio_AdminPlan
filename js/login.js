@@ -30,9 +30,7 @@ async function ejecutarLogin() {
 
         // 4. Procesar respuesta
         const data = await response.json();
-        console.log("Respuesta recibida:", data);
-
-        // ... dentro de tu función ejecutarLogin, después de const data = await response.json();
+        console.log("Respuesta recibida:", data);        
 
         if (response.ok) {
             localStorage.setItem('token', data.jwt);
