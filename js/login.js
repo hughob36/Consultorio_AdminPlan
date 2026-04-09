@@ -49,7 +49,7 @@ async function ejecutarLogin() {
                     window.location.href = 'tables.html';
                 } else {
                     console.log("Acceso como USER");
-                    window.location.href = 'userProfile.html';
+                    window.location.href = 'userPerfil.html';
                 }
             } else {
                 console.error("No se encontraron permisos en el token.");                

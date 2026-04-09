@@ -92,7 +92,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">                        
                         <a class="collapse-item" href="tablaEspecialistas.html">Especialistas</a>
                         <a class="collapse-item" href="tablaTurnosAsignados.html">Turnos asignados</a>
-                        <a class="collapse-item" href="userPerfil.html">Usuario Perfil</a>                        
+                        <a class="collapse-item" href="tables.html">Usuario Perfil</a>                        
                     </div>
                 </div>
             </li>          
@@ -115,50 +115,87 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">                   
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">                
-
-                        <!-- Nav Item - User Information -->
+             <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown no-arrow">
-                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout                                
-                            </a>                        
-                        </li>                        
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="txtNombreCabecera">Usuario</span>
+                                <i class="fas fa-user-circle fa-lg"></i>
+                            </a>
+                        </li>
                     </ul>
-
                 </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">                 
-                   
-
-                    <!-- Content Row -->
-                    <div class="row justify-content-center">                        
-
-                        <div class="col-lg-10 mb-4">
-                            <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Consultorio</h6>
+            
+                <div class="container-fluid">
+                    <h1 class="h3 mb-4 text-gray-800">Mi Perfil</h1>
+                
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                    <h6 class="m-0 font-weight-bold text-primary">Datos Personales</h6>
+                                    <span class="badge badge-info" id="badgeRoles">Usuario</span>
                                 </div>
-                            <div class="text-center">
-                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-                                        src="img/fotoConsultorio2.jpg" alt="...">
-                            </div>                                                      
+                                <div class="card-body">
+                                    <form id="formPerfil">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="small mb-1">Nombre</label>
+                                                <input class="form-control" id="perfilNombre" type="text" readonly>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="small mb-1">Apellido</label>
+                                                <input class="form-control" id="perfilApellido" type="text" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="small mb-1">Nombre de Usuario</label>
+                                                <input class="form-control" id="perfilUserName" type="text" readonly>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="small mb-1">Email</label>
+                                                <input class="form-control" id="perfilEmail" type="email" readonly>
+                                            </div>
+                                        </div>
 
+                                        <hr>
+
+                                        <div class="d-flex justify-content-between mt-4">
+                                            <div>
+                                                <button type="button" class="btn btn-warning shadow-sm" onclick="habilitarEdicion()">
+                                                    <i class="fas fa-edit fa-sm"></i> Modificar Datos
+                                                </button>
+                                                <button type="submit" class="btn btn-success shadow-sm d-none" id="btnGuardar">
+                                                    <i class="fas fa-save fa-sm"></i> Guardar Cambios
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-danger shadow-sm" onclick="confirmarBaja()">
+                                                    <i class="fas fa-user-slash fa-sm"></i> Dar de Baja Cuenta
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-lg-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-body text-center">
+                                    <img class="img-profile rounded-circle mb-3" src="img/undraw_profile.svg" style="width: 150px;">
+                                    <h5 id="txtNombreCompleto">Nombre Completo</h5>
+                                    <p class="text-muted" id="txtEmailSub">usuario@correo.com</p>
+                                    <small class="text-primary">ID de Usuario: #<span id="perfilId">0</span></small>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.container-fluid -->
-
-            </div>
+            </div>     
+             
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -218,6 +255,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/userPerfil.js"></script>
 </body>
 
 </html>
