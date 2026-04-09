@@ -41,7 +41,7 @@
     if (esPaginaProtegida) {
         const esAdmin = payload.authorities && payload.authorities.includes("ADMIN");
         if (!esAdmin) {            
-            window.location.href = 'userProfile.html';
+            window.location.href = 'userPerfil.html';
         }
     }
 })();
