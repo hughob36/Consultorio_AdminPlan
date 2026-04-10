@@ -42,6 +42,7 @@ async function cargarDatosPerfil() {
         document.getElementById('perfilNombre').value = user.name || '';
         document.getElementById('perfilApellido').value = user.lastname || '';
         document.getElementById('perfilUserName').value = user.userName || '';
+        document.getElementById('perfilPassword').value = "**********" || '';
         document.getElementById('perfilEmail').value = user.email || '';
         
         document.getElementById('perfilId').innerText = user.id || '0';
@@ -63,18 +64,62 @@ async function cargarDatosPerfil() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    // ... tu código anterior ...
+
+    const btnToggle = document.getElementById('btnTogglePassword');
+    const inputPass = document.getElementById('perfilPassword');
+    const iconEye = document.getElementById('iconEye');
+
+    if (btnToggle) {
+        btnToggle.addEventListener('click', function () {
+            // Cambiar el tipo de input
+            const type = inputPass.getAttribute('type') === 'password' ? 'text' : 'password';
+            inputPass.setAttribute('type', type);
+            
+            // Cambiar el icono del ojo
+            iconEye.classList.toggle('fa-eye');
+            iconEye.classList.toggle('fa-eye-slash');
+        });
+    }
+});
+
+
+
 /**
  * Cambia los inputs de readonly a editables
  */
 function habilitarEdicion() {
-    const campos = ['perfilNombre', 'perfilApellido', 'perfilEmail'];
+    const campos = ['perfilNombre', 'perfilApellido', 'perfilEmail', 'perfilPassword'];
     campos.forEach(id => {
-        document.getElementById(id).readOnly = false;
+        const el = document.getElementById(id);
+        if (el) el.readOnly = false;
     });
 
-    // Mostrar botón guardar, ocultar botón modificar
-    document.getElementById('btnGuardar').classList.remove('d-none');
-    event.target.closest('button').classList.add('d-none');
+    // Gestión de botones
+    document.getElementById('btnModificar').classList.add('d-none'); // Ocultar modificar
+    document.getElementById('btnGuardar').classList.remove('d-none'); // Mostrar guardar
+    document.getElementById('btnCancelar').classList.remove('d-none'); // Mostrar cancelar
+}
+
+function cancelarEdicion() {
+    const campos = ['perfilNombre', 'perfilApellido', 'perfilEmail', 'perfilPassword'];
+    campos.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.readOnly = true;
+            // Opcional: limpiar el campo password si escribieron algo
+            if (id === 'perfilPassword') el.value = "";
+        }
+    });
+
+    // Revertir botones
+    document.getElementById('btnModificar').classList.remove('d-none'); // Mostrar modificar
+    document.getElementById('btnGuardar').classList.add('d-none');    // Ocultar guardar
+    document.getElementById('btnCancelar').classList.add('d-none');   // Ocultar cancelar
+
+    // Opcional: Recargar los datos originales para deshacer cambios visuales no guardados
+    cargarDatosPerfil(); 
 }
 
 function obtenerIdDesdeJWT(token) {

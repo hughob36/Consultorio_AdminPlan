@@ -45,7 +45,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="login.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Login</span></a>
+                    <span>Login</span></a>                    
             </li> 
             
             <!-- Comienzo Menu privado -->        
@@ -72,7 +72,14 @@
                         <a class="collapse-item" href="userPerfil.html">Usuario Perfil</a>                        
                     </div>
                 </div>
-            </li>          
+            </li> 
+            <li class="nav-item">
+                  <a class="nav-link collapsed" href="#" id="userDropdown" role="button"
+                                data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout                                
+                            </a>
+            </li>         
             <!-- Fin Menu privado -->
                       
            
@@ -136,16 +143,32 @@
                                                 <input class="form-control" id="perfilEmail" type="email" readonly>
                                             </div>
                                         </div>
+                                        <div class="row">                                            
+                                           <div class="col-md-6 mb-3">
+                                                <label class="small mb-1">Contraseña</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" id="perfilPassword" type="password" readonly>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary" type="button" id="btnTogglePassword">
+                                                            <i class="fas fa-eye" id="iconEye"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <hr>
 
                                         <div class="d-flex justify-content-between mt-4">
                                             <div>
-                                                <button type="button" class="btn btn-warning shadow-sm" onclick="habilitarEdicion()">
+                                                <button type="button" class="btn btn-warning shadow-sm" id="btnModificar" onclick="habilitarEdicion()">
                                                     <i class="fas fa-edit fa-sm"></i> Modificar Datos
                                                 </button>
                                                 <button type="submit" class="btn btn-success shadow-sm d-none" id="btnGuardar">
                                                     <i class="fas fa-save fa-sm"></i> Guardar Cambios
+                                                </button>
+                                                <button type="button" class="btn btn-secondary shadow-sm d-none" id="btnCancelar" onclick="cancelarEdicion()">
+                                                    Cancelar
                                                 </button>
                                             </div>
                                             <div>
