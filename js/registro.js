@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    const token = localStorage.getItem('token');    
+    /*const token = localStorage.getItem('token');    
     
     if (!token) {
         alert("Sesión expirada o no iniciada. Por favor, inicia sesión.");
         window.location.href = 'login.html';
         return; 
-    }
+    }*/
 
     const registroForm = document.querySelector('form.user');
 
@@ -50,14 +50,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     // ¡ESTO FALTABA! Enviar el token al servidor
-                    'Authorization': 'Bearer ' + token 
+                    //'Authorization': 'Bearer ' + token 
                 },
                 body: JSON.stringify(usuario)
             });
 
             if (response.ok) {
                 alert("¡Usuario registrado con éxito!");
-                window.location.href = 'tables.html'; 
+                window.location.href = 'login.html'; 
             } else {
                 // Si el error es 403 o 401, el token probablemente venció
                 if(response.status === 403 || response.status === 401) {
