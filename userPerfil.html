@@ -31,12 +31,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <span class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-stethoscope"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Consultorio </div>
-            </a>
+            </span>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -123,6 +123,7 @@
                                 </div>
                                 <div class="card-body">
                                     <form id="formPerfil">
+                                        <input type="hidden" id="perfilId2" value="${perfil.id}">
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
                                                 <label class="small mb-1">Nombre</label>
@@ -164,7 +165,7 @@
                                                 <button type="button" class="btn btn-warning shadow-sm" id="btnModificar" onclick="habilitarEdicion()">
                                                     <i class="fas fa-edit fa-sm"></i> Modificar Datos
                                                 </button>
-                                                <button type="submit" class="btn btn-success shadow-sm d-none" id="btnGuardar">
+                                                <button type="submit" class="btn btn-success shadow-sm d-none" id="btnGuardar" onclick="guardarCambios()">
                                                     <i class="fas fa-save fa-sm"></i> Guardar Cambios
                                                 </button>
                                                 <button type="button" class="btn btn-secondary shadow-sm d-none" id="btnCancelar" onclick="cancelarEdicion()">
@@ -172,7 +173,7 @@
                                                 </button>
                                             </div>
                                             <div>
-                                                <button type="button" class="btn btn-danger shadow-sm" onclick="confirmarBaja()">
+                                                <button type="button" class="btn btn-danger shadow-sm" onclick="eliminarUsuario()">
                                                     <i class="fas fa-user-slash fa-sm"></i> Dar de Baja Cuenta
                                                 </button>
                                             </div>

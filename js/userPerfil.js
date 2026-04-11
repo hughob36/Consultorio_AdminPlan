@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('formPerfil');
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        guardarCambios();
+        guardarCambios();        
     });
 });
 
@@ -16,12 +16,12 @@ async function cargarDatosPerfil() {
 
     const token = localStorage.getItem('token');
     // 1. Obtener ID y Token del almacenamiento local
-    const userId = obtenerIdDesdeJWT(token); // Deberías guardarlo al hacer login       
+    const userId = obtenerIdDesdeJWT(token); // Deberías guardarlo al hacer login    
 
     if (!userId || !token) {
         window.location.href = 'login.html';
         return;
-    }
+    }    
 
     try {
         const response = await fetch(`http://localhost:8080/api/user/${userId}`, {
@@ -45,7 +45,8 @@ async function cargarDatosPerfil() {
         document.getElementById('perfilPassword').value = "**********" || '';
         document.getElementById('perfilEmail').value = user.email || '';
         
-        document.getElementById('perfilId').innerText = user.id || '0';
+        document.getElementById('perfilId').innerText = userId || '0';
+        document.getElementById('perfilId2').value = userId || '0';
 
         // 3. Mapear datos a los elementos visuales de la tarjeta lateral
         document.getElementById('txtNombreCompleto').innerText = `${user.name} ${user.lastname}`;
@@ -65,8 +66,7 @@ async function cargarDatosPerfil() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // ... tu código anterior ...
-
+    
     const btnToggle = document.getElementById('btnTogglePassword');
     const inputPass = document.getElementById('perfilPassword');
     const iconEye = document.getElementById('iconEye');
@@ -132,6 +132,88 @@ function obtenerIdDesdeJWT(token) {
         return null;
     }
 }
+
+// 2. Event Listener para el envío del formulario EDITAR
+function guardarCambios() {
+    const formEditar = document.getElementById('formPerfil');
+    
+    if (formEditar) {
+        formEditar.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitamos que la página se recargue
+
+            const id = parseInt (document.getElementById('perfilId2').value);
+            const token = localStorage.getItem('token');
+            console.log(id);
+
+            // Creamos el objeto con los datos actualizados
+            const usuarioData = {
+                name: document.getElementById('perfilNombre').value,
+                lastname: document.getElementById('perfilApellido').value,
+                email: document.getElementById('perfilEmail').value,                
+                userName: document.getElementById('perfilUserName').value,
+                password: document.getElementById('perfilPassword').value,                
+                enable: true,
+                accountNotExpired: true,
+                accountNotLocked: true,
+                credentialNotExpired: true,
+                roleList: [
+                    {
+                        "id": 2          
+                    }              
+                ]
+            };
+
+            // Enviamos la petición PUT al backend
+            fetch(`http://localhost:8080/api/user/${id}`, {
+                method: 'PUT', // Asegúrate de que tu backend use PUT para actualizaciones
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usuarioData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Usuario actualizado con éxito");
+                    location.reload(); // Refrescamos la tabla para ver los cambios
+                } else {
+                    alert("Error al intentar actualizar el usuario.");
+                }
+            })
+            .catch(error => {
+                console.error("Error en la petición:", error);
+                alert("Hubo un problema con la conexión.");
+            });
+        });
+    }
+};
+
+function eliminarUsuario() {
+    const token = localStorage.getItem('token');
+    const id = parseInt (document.getElementById('perfilId2').value)
+
+    if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+        fetch(`http://localhost:8080/api/user/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Usuario eliminado con éxito");
+                localStorage.removeItem('token');
+                localStorage.clear(); 
+                window.location.href = 'index.html';
+            } else {
+                alert("No se pudo eliminar el usuario.");
+            }
+        })
+        .catch(err => console.error("Error al eliminar:", err));
+    }
+}
+
+
 
 /**
  * Lógica para cerrar sesión
