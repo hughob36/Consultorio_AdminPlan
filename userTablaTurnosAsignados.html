@@ -11,7 +11,7 @@
 
     <script src="js/auth-guard.js"></script>
 
-    <title>Consultorio - Tabla usuarios</title>
+    <title>Consultorio - Tabla Turnos Asignados</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,12 +36,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <span class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-stethoscope"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Consultorio</div>
-            </a>
+            </span>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -76,9 +76,14 @@
                         <a class="collapse-item" href="userPerfil.html">Usuario Perfil</a>                        
                     </div>
                 </div>
-            </li>           
-
-                     
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" id="userDropdown" role="button"
+                                data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout                                
+                </a>
+            </li>   
           
 
             <!-- Divider -->

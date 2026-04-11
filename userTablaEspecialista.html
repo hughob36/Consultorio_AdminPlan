@@ -36,12 +36,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <span class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-stethoscope"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Consultorio</div>
-            </a>
+            </span>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -72,11 +72,18 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">                        
                         <a class="collapse-item" href="userTablaEspecialista.html">Especialistas</a>
-                        <a class="collapse-item" href="tablaTurnosAsignados.html">Turnos asignados</a>
+                        <a class="collapse-item" href="userTablaTurnosAsignados.html">Turnos asignados</a>
                         <a class="collapse-item" href="userPerfil.html">Usuario Perfil</a>                        
                     </div>
                 </div>
-            </li>           
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" id="userDropdown" role="button"
+                                data-toggle="modal" data-target="#logoutModal" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout                                
+                </a>
+            </li>            
           
 
             <!-- Divider -->
@@ -92,6 +99,18 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
+            
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="modal" data-target="#logoutModal">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="txtNombreCabecera">Usuario</span>
+                                <i class="fas fa-user-circle fa-lg"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
 
             <!-- Main Content -->
             <div id="content">
