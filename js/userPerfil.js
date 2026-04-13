@@ -127,7 +127,7 @@ function obtenerIdDesdeJWT(token) {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const payload = JSON.parse(window.atob(base64));
-        return payload.userId;; // O payload.sub, depende de tu backend
+        return payload.userId; // O payload.sub, depende de tu backend
     } catch (e) {
         return null;
     }

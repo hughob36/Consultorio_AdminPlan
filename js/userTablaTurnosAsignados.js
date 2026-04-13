@@ -1,11 +1,13 @@
 $(document).ready(function() {
     // 1. Inicializar DataTable
     const tablaUsuarios = $('#dataTable').DataTable();
-
-    // 2. Función para cargar los datos
+    
     function cargarUsuarios() {
         // Obtenemos el JWT guardado en el Login
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
+        const userId = obtenerIdDesdeJWT(token); 
+
+        console.log(userId);
 
         if (!token) {
             alert("Sesión no encontrada. Por favor, inicia sesión.");
@@ -13,10 +15,10 @@ $(document).ready(function() {
             return;
         }
 
-        fetch('http://localhost:8080/api/appointment', {
+        fetch(`http://localhost:8080/api/appointment/${userId}`, {
             method: 'GET',
             headers: {
-                'Authorization': 'Bearer ' + token, // IMPORTANTE: Enviamos el token
+                'Authorization': `Bearer ${token}`, 
                 'Content-Type': 'application/json'
             }
         })
@@ -24,17 +26,14 @@ $(document).ready(function() {
             if (response.status === 401 || response.status === 403) {
                 throw new Error('No tienes permisos o tu sesión expiró.');
             }
-            if (!response.ok) throw new Error('Error al obtener turnos.');
+            if (!response.ok) throw new Error('Error al obtener turnos o no tiene turnos.');
             return response.json();
         })
         .then(turnos => {
             tablaUsuarios.clear();
 
-            turnos.forEach(turno => {
-                
-            // Como 'user' y 'specialist' son objetos (no listas), 
-            // accedemos directamente a sus propiedades. 
-            // Nota: Asegúrate si en tu JS la propiedad es 'username', 'nombre', etc.
+            turnos.forEach(turno => {                
+            
             const nombreUsuario = turno.user ? `${turno.user.name} ${turno.user.lastname}` : 'N/A';
             const nombreEspecialista = turno.specialist ? `${turno.specialist.name} ${turno.specialist.lastname}` : 'N/A';
 
@@ -64,14 +63,12 @@ $(document).ready(function() {
                 turno.appointmentStatus,
                 botones
             ]);
-        });
-            
+        });            
 
             tablaUsuarios.draw();
         })
         .catch(error => {
-            console.error('Error:', error);
-            // alert(error.message);
+            console.error('Error:', error);            
         });
     }
 
@@ -126,6 +123,22 @@ function cambiarEstado(id, nuevoEstado) {
         alert(error.message);
     });
 }
+
+//obtener ID
+function obtenerIdDesdeJWT(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const payload = JSON.parse(window.atob(base64));
+        return payload.userId; 
+    } catch (e) {
+        return null;
+    }
+}
+
+
+
+
 
 function editarTurno(id) {
     const token = localStorage.getItem('token');
