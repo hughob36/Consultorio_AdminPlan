@@ -250,13 +250,13 @@ function asignarTurno(idUsuario) {
     .then(response => response.json())
     .then(especialistas => {
         const select = document.getElementById('selectEspecialista');
-        select.innerHTML = '<option value="">Seleccione un especialista...</option>'; // Limpiar
+        select.innerHTML = '<option value="">Seleccione un especialista...</option>'; 
         
         especialistas.forEach( e => {
             if(e.active){
                 const option = document.createElement('option');
                 option.value = e.id;
-                // Mostramos Nombre, Apellido y Especialidad como pediste
+                
                 option.textContent = `${e.name} ${e.lastname} - ${e.specialty}`;
                 select.appendChild(option);
             }

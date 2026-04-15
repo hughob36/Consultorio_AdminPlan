@@ -33,8 +33,7 @@ $(document).ready(function() {
             turnos.forEach(turno => {
                 
             // Como 'user' y 'specialist' son objetos (no listas), 
-            // accedemos directamente a sus propiedades. 
-            // Nota: Asegúrate si en tu JS la propiedad es 'username', 'nombre', etc.
+            // accedemos directamente a sus propiedades.           
             const nombreUsuario = turno.user ? `${turno.user.name} ${turno.user.lastname}` : 'N/A';
             const nombreEspecialista = turno.specialist ? `${turno.specialist.name} ${turno.specialist.lastname}` : 'N/A';            
 
