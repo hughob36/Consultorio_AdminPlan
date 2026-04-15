@@ -62,8 +62,7 @@ $(document).ready(function() {
             tablaUsuarios.draw();
         })
         .catch(error => {
-            console.error('Error:', error);
-            // alert(error.message);
+            console.error('Error:', error);           
         });
     }
 
@@ -210,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Enviamos la petición PUT al backend
             fetch(`http://localhost:8080/api/user/${id}`, {
-                method: 'PUT', // Asegúrate de que tu backend use PUT para actualizaciones
+                method: 'PUT', 
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
@@ -220,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     alert("Usuario actualizado con éxito");
-                    location.reload(); // Refrescamos la tabla para ver los cambios
+                    location.reload(); 
                 } else {
                     alert("Error al intentar actualizar el usuario.");
                 }
@@ -253,12 +252,15 @@ function asignarTurno(idUsuario) {
         const select = document.getElementById('selectEspecialista');
         select.innerHTML = '<option value="">Seleccione un especialista...</option>'; // Limpiar
         
-        especialistas.forEach(e => {
-            const option = document.createElement('option');
-            option.value = e.id;
-            // Mostramos Nombre, Apellido y Especialidad como pediste
-            option.textContent = `${e.name} ${e.lastname} - ${e.specialty}`;
-            select.appendChild(option);
+        especialistas.forEach( e => {
+            if(e.active){
+                const option = document.createElement('option');
+                option.value = e.id;
+                // Mostramos Nombre, Apellido y Especialidad como pediste
+                option.textContent = `${e.name} ${e.lastname} - ${e.specialty}`;
+                select.appendChild(option);
+            }
+            
         });
 
         // 3. Mostramos el modal (usando Bootstrap 5)

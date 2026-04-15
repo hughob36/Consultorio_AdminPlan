@@ -36,7 +36,7 @@ $(document).ready(function() {
             // accedemos directamente a sus propiedades. 
             // Nota: Asegúrate si en tu JS la propiedad es 'username', 'nombre', etc.
             const nombreUsuario = turno.user ? `${turno.user.name} ${turno.user.lastname}` : 'N/A';
-            const nombreEspecialista = turno.specialist ? `${turno.specialist.name} ${turno.specialist.lastname}` : 'N/A';
+            const nombreEspecialista = turno.specialist ? `${turno.specialist.name} ${turno.specialist.lastname}` : 'N/A';            
 
             const botones = `
                 <div class="text-center">
@@ -70,11 +70,9 @@ $(document).ready(function() {
             tablaUsuarios.draw();
         })
         .catch(error => {
-            console.error('Error:', error);
-            // alert(error.message);
+            console.error('Error:', error);           
         });
     }
-
     cargarUsuarios();
 });
 
@@ -143,9 +141,9 @@ function cambiarEstado(id, nuevoEstado) {
 }
 
 function editarTurno(id) {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');   
     
-    fetch(`http://localhost:8080/api/appointment/${id}`, {
+    fetch(`http://localhost:8080/api/appointment/id/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -163,7 +161,7 @@ function editarTurno(id) {
         document.getElementById('editTime').value = turno.time;
         document.getElementById('editAppointmentStatus').value = turno.appointmentStatus;        
         document.getElementById('editUserId').value = turno.user.id;
-        document.getElementById('editSpecialistId').value = turno.specialist.id,
+        document.getElementById('editSpecialistId').value = turno.specialist.id;
         document.getElementById('editSpecialist').value = turno.specialist.name  +" "+turno.specialist.lastname;        
 
         // Abrimos el modal programáticamente (Bootstrap 5)
@@ -195,9 +193,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: document.getElementById('editDate').value,
                 time: document.getElementById('editTime').value,
                 appointmentStatus: "SCHEDULED",//document.getElementById('editSpecialist').value,
-                user: { id: document.getElementById('editUserId').value },
-                specialist: { id: document.getElementById('editSpecialistId').value }               
+                user: { id: parseInt(document.getElementById('editUserId').value) },
+                specialist: { id: parseInt(document.getElementById('editSpecialistId').value) }               
             };
+          
 
             // Enviamos la petición PUT al backend
             fetch(`http://localhost:8080/api/appointment/${id}`, {
