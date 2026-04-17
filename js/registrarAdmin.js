@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/user', {
+            const response = await fetch('https://consultorio-turnos.onrender.com/api/user', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

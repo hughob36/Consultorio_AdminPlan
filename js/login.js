@@ -17,7 +17,7 @@ async function ejecutarLogin() {
     try {
         // 3. Petición Fetch
         //direccion render: https://consultorio-turnos.onrender.com/auth/login
-        const response = await fetch('http://localhost:8080/auth/login', {
+        const response = await fetch('https://consultorio-turnos.onrender.com/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ async function ejecutarLogin() {
             const payload = parseJwt(data.jwt);
         
             if (payload && payload.authorities) {
-                // Como en tu imagen authorities es "CREATE, ROLE_ADMIN", 
+                //authorities es "CREATE, ROLE_ADMIN", 
                 // usamos .includes() para verificar si contiene el rol de administrador
                 const esAdmin = payload.authorities.includes("ROLE_ADMIN");
             

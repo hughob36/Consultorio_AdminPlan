@@ -1,10 +1,10 @@
 $(document).ready(function() {
-    // 1. Inicializar DataTable
+    
     const tablaUsuarios = $('#dataTable').DataTable();
 
-    // 2. Función para cargar los datos
+    
     function cargarUsuarios() {
-        // Obtenemos el JWT guardado en el Login
+        
         const token = localStorage.getItem('token'); 
 
         if (!token) {
@@ -13,7 +13,7 @@ $(document).ready(function() {
             return;
         }
 
-        fetch('http://localhost:8080/api/user', {
+        fetch('https://consultorio-turnos.onrender.com/api/user', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token, 
@@ -91,7 +91,7 @@ function eliminarUsuario(id) {
     const token = localStorage.getItem('token');
 
     if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-        fetch(`http://localhost:8080/api/user/${id}`, {
+        fetch(`https://consultorio-turnos.onrender.com/api/user/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -112,7 +112,7 @@ function eliminarUsuario(id) {
 function infoUsuario(id) {
     const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:8080/api/user/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/user/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -132,7 +132,7 @@ function infoUsuario(id) {
         document.getElementById('modalEmail').textContent = user.email;
         document.getElementById('modalUserName').textContent = user.userName;
 
-        // 2. Mostrar el modal (Si usas Bootstrap 5)
+        // 2. Mostrar el modal 
         const myModal = new bootstrap.Modal(document.getElementById('userModal'));
         myModal.show();
     })
@@ -147,7 +147,7 @@ function infoUsuario(id) {
 function editarUsuario(id) {
     const token = localStorage.getItem('token');
     
-    fetch(`http://localhost:8080/api/user/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/user/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -159,7 +159,7 @@ function editarUsuario(id) {
         return response.json();
     })
     .then(user => {
-        // Llenamos los inputs del modal con los datos recibidos
+        
         document.getElementById('editUserId').value = user.id;
         document.getElementById('editName').value = user.name;
         document.getElementById('editLastname').value = user.lastname;
@@ -167,7 +167,7 @@ function editarUsuario(id) {
         document.getElementById('editUserName').value = user.userName;
         document.getElementById('editPassword').value = user.password;
 
-        // Abrimos el modal programáticamente (Bootstrap 5)
+        // Abrimos el modal 
         const modalElement = document.getElementById('editarUsuarioModal');
         const modalInstance = new bootstrap.Modal(modalElement);
         modalInstance.show();
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             // Enviamos la petición PUT al backend
-            fetch(`http://localhost:8080/api/user/${id}`, {
+            fetch(`https://consultorio-turnos.onrender.com/api/user/${id}`, {
                 method: 'PUT', 
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -240,7 +240,7 @@ function asignarTurno(idUsuario) {
     document.getElementById('userIdTurno').value = idUsuario;
     
     // 2. Cargamos los especialistas desde tu API
-    fetch('http://localhost:8080/api/specialist', {
+    fetch('https://consultorio-turnos.onrender.com/api/specialist', {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token, 
@@ -263,7 +263,7 @@ function asignarTurno(idUsuario) {
             
         });
 
-        // 3. Mostramos el modal (usando Bootstrap 5)
+        // 3. Mostramos el modal 
         const myModal = new bootstrap.Modal(document.getElementById('modalTurno'));
         myModal.show();
     })
@@ -281,7 +281,7 @@ function guardarTurno() {
         specialist: { id: document.getElementById('selectEspecialista').value }
     };
 
-    fetch('http://localhost:8080/api/appointment', {
+    fetch('https://consultorio-turnos.onrender.com/api/appointment', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -294,7 +294,7 @@ function guardarTurno() {
             alert("Turno asignado con éxito");
             bootstrap.Modal.getInstance(document.getElementById('modalTurno')).hide();
             window.location.href = 'tablaTurnosAsignados.html';
-            location.reload(); // Opcional: recargar para ver cambios
+            location.reload(); // recargar para ver cambios
         } else {
             alert("Error al asignar el turno");
         }
@@ -307,8 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnLogout) {
         btnLogout.addEventListener('click', function() {            
             localStorage.removeItem('token');
-            localStorage.clear();                         
-            console.log("Sesión cerrada, eliminando token...");
+            localStorage.clear();           
             window.location.href = "index.html";
         });
     }

@@ -1,13 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    /*const token = localStorage.getItem('token');    
-    
-    if (!token) {
-        alert("Sesión expirada o no iniciada. Por favor, inicia sesión.");
-        window.location.href = 'login.html';
-        return; 
-    }*/
-
     const registroForm = document.querySelector('form.user');
 
     registroForm.addEventListener('submit', async function (e) {
@@ -24,8 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert("Las contraseñas no coinciden.");
             return;
         }
-
-        // Estructura idéntica a tu JSON de ejemplo
+        
         const usuario = {
             name: nombre,            
             lastname: apellido,
@@ -44,13 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/api/user', {
+            const response = await fetch('https://consultorio-turnos.onrender.com/api/user', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    // ¡ESTO FALTABA! Enviar el token al servidor
-                    //'Authorization': 'Bearer ' + token 
+                    'Content-Type': 'application/json'                    
                 },
                 body: JSON.stringify(usuario)
             });

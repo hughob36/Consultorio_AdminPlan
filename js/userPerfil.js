@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 async function cargarDatosPerfil() {
 
     const token = localStorage.getItem('token');
-    // 1. Obtener ID y Token del almacenamiento local
-    const userId = obtenerIdDesdeJWT(token); // Deberías guardarlo al hacer login    
+    
+    const userId = obtenerIdDesdeJWT(token);     
 
     if (!userId || !token) {
         window.location.href = 'login.html';
@@ -24,7 +24,7 @@ async function cargarDatosPerfil() {
     }    
 
     try {
-        const response = await fetch(`http://localhost:8080/api/user/${userId}`, {
+        const response = await fetch(`https://consultorio-turnos.onrender.com/api/user/${userId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -108,7 +108,7 @@ function cancelarEdicion() {
         const el = document.getElementById(id);
         if (el) {
             el.readOnly = true;
-            // Opcional: limpiar el campo password si escribieron algo
+            //limpiar el campo password si escribieron algo
             if (id === 'perfilPassword') el.value = "";
         }
     });
@@ -164,8 +164,8 @@ function guardarCambios() {
             };
 
             // Enviamos la petición PUT al backend
-            fetch(`http://localhost:8080/api/user/${id}`, {
-                method: 'PUT', // Asegúrate de que tu backend use PUT para actualizaciones
+            fetch(`https://consultorio-turnos.onrender.com/api/user/${id}`, {
+                method: 'PUT', 
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
@@ -193,7 +193,7 @@ function eliminarUsuario() {
     const id = parseInt (document.getElementById('perfilId2').value)
 
     if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-        fetch(`http://localhost:8080/api/user/${id}`, {
+        fetch(`https://consultorio-turnos.onrender.com/api/user/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -224,8 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnLogout) {
         btnLogout.addEventListener('click', function() {            
             localStorage.removeItem('token');
-            localStorage.clear();                         
-            console.log("Sesión cerrada, eliminando token...");
+            localStorage.clear();            
             window.location.href = "index.html";
         });
     }

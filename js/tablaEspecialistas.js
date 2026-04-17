@@ -12,7 +12,7 @@ $(document).ready(function() {
             return;
         }
 
-        fetch('http://localhost:8080/api/specialist', {
+        fetch('https://consultorio-turnos.onrender.com/api/specialist', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token, // IMPORTANTE: Enviamos el token
@@ -57,8 +57,7 @@ $(document).ready(function() {
             tablaEspecialistas.draw();
         })
         .catch(error => {
-            console.error('Error:', error);
-            // alert(error.message);
+            console.error('Error:', error);            
         });
     }
 
@@ -83,12 +82,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // --- FUNCIONES GLOBALES ---
-
 function eliminarUsuario(id) {
     const token = localStorage.getItem('token');
 
     if (confirm("¿Estás seguro de que deseas eliminar este Especialista?")) {
-        fetch(`http://localhost:8080/api/specialist/${id}`, {
+        fetch(`https://consultorio-turnos.onrender.com/api/specialist/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -109,7 +107,7 @@ function eliminarUsuario(id) {
 function infoEspecialista(id) {
     const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:8080/api/specialist/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/specialist/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -120,7 +118,7 @@ function infoEspecialista(id) {
         if (!response.ok) {
             throw new Error("No se pudo obtener los datos");
         }
-        return response.json(); // Convertimos la respuesta a JSON
+        return response.json(); 
     })
     .then(user => {
         // 1. Insertar los datos del DTO en el HTML
@@ -146,7 +144,7 @@ function infoEspecialista(id) {
 function editarUsuario(id) {
     const token = localStorage.getItem('token');
     
-    fetch(`http://localhost:8080/api/specialist/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/specialist/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -196,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             // Enviamos la petición PUT al backend
-            fetch(`http://localhost:8080/api/specialist/${id}`, {
+            fetch(`https://consultorio-turnos.onrender.com/api/specialist/${id}`, {
                 method: 'PUT', 
                 headers: {
                     'Authorization': 'Bearer ' + token,

@@ -12,7 +12,7 @@ $(document).ready(function() {
             return;
         }
 
-        fetch('http://localhost:8080/api/specialist', {
+        fetch('https://consultorio-turnos.onrender.com/api/specialist', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token, 
@@ -51,8 +51,7 @@ $(document).ready(function() {
             tablaEspecialistas.draw();
         })
         .catch(error => {
-            console.error('Error:', error);
-            // alert(error.message);
+            console.error('Error:', error);            
         });
     }
 
@@ -63,7 +62,7 @@ $(document).ready(function() {
 function infoEspecialista(id) {
     const token = localStorage.getItem('token');
 
-    fetch(`http://localhost:8080/api/specialist/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/specialist/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -102,8 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnLogout) {
         btnLogout.addEventListener('click', function() {            
             localStorage.removeItem('token'); 
-            localStorage.clear();                        
-            console.log("Sesión cerrada, eliminando token...");
+            localStorage.clear();            
             window.location.href = "index.html";            
         });
     }

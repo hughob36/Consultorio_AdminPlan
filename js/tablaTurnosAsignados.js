@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // 1. Inicializar DataTable
+    
     const tablaUsuarios = $('#dataTable').DataTable();
 
     // 2. Función para cargar los datos
@@ -13,7 +13,7 @@ $(document).ready(function() {
             return;
         }
 
-        fetch('http://localhost:8080/api/appointment', {
+        fetch('https://consultorio-turnos.onrender.com/api/appointment', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token, // IMPORTANTE: Enviamos el token
@@ -102,7 +102,7 @@ function cambiarEstado(id, nuevoEstado) {
     const token = localStorage.getItem('token'); 
 
     // 3. Petición al endpoint @PatchMapping("/{id}")
-    fetch(`http://localhost:8080/api/appointment/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/appointment/${id}`, {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -142,7 +142,7 @@ function cambiarEstado(id, nuevoEstado) {
 function editarTurno(id) {
     const token = localStorage.getItem('token');   
     
-    fetch(`http://localhost:8080/api/appointment/id/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/appointment/id/${id}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + token,
@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
 
             // Enviamos la petición PUT al backend
-            fetch(`http://localhost:8080/api/appointment/${id}`, {
+            fetch(`https://consultorio-turnos.onrender.com/api/appointment/${id}`, {
                 method: 'PUT', 
                 headers: {
                     'Authorization': 'Bearer ' + token,

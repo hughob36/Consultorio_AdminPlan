@@ -15,7 +15,7 @@ $(document).ready(function() {
             return;
         }
 
-        fetch(`http://localhost:8080/api/appointment/${userId}`, {
+        fetch(`https://consultorio-turnos.onrender.com/api/appointment/${userId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`, 
@@ -76,7 +76,7 @@ function cambiarEstado(id, nuevoEstado) {
     const token = localStorage.getItem('token'); 
 
     // 3. Petición al endpoint @PatchMapping("/{id}")
-    fetch(`http://localhost:8080/api/appointment/${id}`, {
+    fetch(`https://consultorio-turnos.onrender.com/api/appointment/${id}`, {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -117,15 +117,13 @@ function obtenerIdDesdeJWT(token) {
     }
 }
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const btnLogout = document.getElementById('btnConfirmarLogout');
 
     if (btnLogout) {
         btnLogout.addEventListener('click', function() {            
             localStorage.removeItem('token');
-            localStorage.clear();                         
-            console.log("Sesión cerrada, eliminando token...");
+            localStorage.clear();            
             window.location.href = "index.html";
         });
     }
