@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        let id = 2;
+        let id = 30001;
         if(role === "ADMIN") id = 1;    
 
         // Estructura idéntica a tu JSON de ejemplo

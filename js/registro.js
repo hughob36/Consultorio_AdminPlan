@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         
+        
         const usuario = {
             name: nombre,            
             lastname: apellido,
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
             credentialNotExpired: true,
             roleList: [
                 {
-                    "id": 2          
+                    "id": 30001          
                 }              
             ]
         };
